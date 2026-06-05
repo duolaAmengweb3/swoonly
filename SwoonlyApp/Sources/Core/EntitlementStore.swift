@@ -22,8 +22,8 @@ final class EntitlementStore: ObservableObject {
 
     var monthly: Product? { products.first { $0.id == Self.monthlyID } }
     var yearly:  Product? { products.first { $0.id == Self.yearlyID } }
-    var monthlyPrice: String { monthly?.displayPrice ?? "$13.99" }
-    var yearlyPrice:  String { yearly?.displayPrice ?? "$78.99" }
+    var monthlyPrice: String { monthly?.displayPrice ?? "$12.99" }
+    var yearlyPrice:  String { yearly?.displayPrice ?? "$79.99" }
 
     func loadProducts() async {
         products = (try? await Product.products(for: Self.productIDs))?
