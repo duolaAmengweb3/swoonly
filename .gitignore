@@ -1,0 +1,13 @@
+# build artifacts
+SwoonlyApp/Swoonly.xcodeproj/
+SwoonlyApp/build_sim/
+**/.DS_Store
+**/DerivedData/
+# not part of the app build / keep private
+backend/
+内容工作流/
+marketing/
+brand/
+scripts/
+*.py
+密钥*

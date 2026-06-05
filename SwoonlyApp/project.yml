@@ -1,0 +1,128 @@
+name: Swoonly
+options:
+  bundleIdPrefix: com.duolaameng
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: H7DV8ZSZGB
+    SWIFT_VERSION: "5.0"
+    GENERATE_INFOPLIST_FILE: NO
+    TARGETED_DEVICE_FAMILY: "1"
+    SUPPORTS_MACCATALYST: NO
+
+targets:
+  Swoonly:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources
+      - path: Resources
+    dependencies:
+      - sdk: StoreKit.framework
+      - sdk: WidgetKit.framework
+      - target: SwoonlyWidget
+    entitlements:
+      path: Swoonly.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.duolaameng.swoonly
+    info:
+      path: Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Swoonly
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.duolaameng.swoonly
+        PRODUCT_NAME: Swoonly
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_ENTITLEMENTS: Swoonly.entitlements
+
+  SwoonlyWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Widget
+      - path: Sources/Shared/SwoonlyShared.swift
+      - path: Sources/Core/SharedStore.swift
+    dependencies:
+      - sdk: WidgetKit.framework
+      - sdk: SwiftUI.framework
+    entitlements:
+      path: SwoonlyWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.duolaameng.swoonly
+    info:
+      path: Widget/Info.plist
+      properties:
+        CFBundleDisplayName: Swoonly
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.duolaameng.swoonly.widget
+        PRODUCT_NAME: SwoonlyWidget
+        CODE_SIGN_ENTITLEMENTS: SwoonlyWidget.entitlements
+
+  SwoonlyTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Tests
+      - path: Resources/Swoonly.storekit
+        buildPhase: resources
+    dependencies:
+      - target: Swoonly
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.duolaameng.swoonly.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+  SwoonlyUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: UITests
+    dependencies:
+      - target: Swoonly
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.duolaameng.swoonly.uitests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  Swoonly:
+    build:
+      targets:
+        Swoonly: all
+        SwoonlyTests: [test]
+        SwoonlyUITests: [test]
+    run:
+      config: Debug
+      storeKitConfiguration: Resources/Swoonly.storekit
+    test:
+      storeKitConfiguration: Resources/Swoonly.storekit
+      targets:
+        - SwoonlyTests
+        - SwoonlyUITests
