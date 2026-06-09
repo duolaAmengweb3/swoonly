@@ -55,8 +55,12 @@ struct PaywallView: View {
 
                 Button("Restore purchases") { Task { try? await entitlement.restore(); if entitlement.isPro { dismiss() } } }
                     .font(.footnote).tint(Theme.textSecondary)
-                Text("The first chapters of every book are always free. Cancel anytime. Subscription auto-renews unless cancelled 24h before the period ends.")
+                Text("Swoonly Pro is an auto-renewing subscription (monthly or yearly, priced above), billed to your Apple Account. The first chapters of every book are always free. Cancel anytime in Settings; auto-renews unless cancelled at least 24h before the period ends.")
                     .font(.caption2).foregroundStyle(Theme.textSecondary).multilineTextAlignment(.center).padding(.horizontal, 8)
+                HStack(spacing: 18) {
+                    Link("Privacy Policy", destination: URL(string: "https://duolaamengweb3.github.io/swoonly/privacy.html")!)
+                    Link("Terms of Use (EULA)", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                }.font(.caption2.weight(.semibold)).tint(Theme.accent)
             }.padding(20)
         }
         .background(Theme.canvas.ignoresSafeArea())

@@ -42,6 +42,7 @@ struct SettingsView: View {
                 }
                 Section("About") {
                     Link("Privacy Policy", destination: URL(string: "https://duolaamengweb3.github.io/swoonly/privacy.html")!)
+                    Link("Terms of Use (EULA)", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
                     Link("Support", destination: URL(string: "https://duolaamengweb3.github.io/swoonly/support.html")!)
                     HStack { Text("Version"); Spacer(); Text("1.0").foregroundStyle(Theme.textSecondary) }
                 }
